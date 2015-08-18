@@ -19,6 +19,7 @@ class Migration(migrations.Migration):
                 ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
                 ('prompt', models.TextField()),
                 ('correct_answer', models.BooleanField()),
+                ('assessment', models.ForeignKey(to='assessments.Assessment')),
             ],
         ),
         migrations.CreateModel(

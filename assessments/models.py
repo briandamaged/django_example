@@ -46,6 +46,8 @@ class Assessment(m.Model):
 
 
 class Question(m.Model):
+  assessment = m.ForeignKey(Assessment)
+
   prompt = m.TextField();
 
   # TODO: Eventually, we would want to extract this into a
