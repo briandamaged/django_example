@@ -53,7 +53,14 @@ class Question(m.Model):
   # TODO: Eventually, we would want to extract this into a
   #       polymorphic model so that we could support many
   #       different types of answers.
-  correct_answer = m.BooleanField()
+  correct_answer = m.BooleanField(
+    "The answer is...",
+    choices = (
+      (True, "Yes"),
+      (False, "No")
+    ),
+    default = True
+  )
 
 
   def __str__(self):
