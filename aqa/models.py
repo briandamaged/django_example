@@ -108,7 +108,7 @@ class Assessment(m.Model):
 
 
 
-class UserAnswer(m.Model):
+class AssessmentAnswer(m.Model):
   """
   Represents the way that a User answered a Question during
   an Assessment.
