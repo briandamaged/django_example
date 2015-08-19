@@ -116,7 +116,14 @@ class AssessmentAnswer(m.Model):
   assessment = m.ForeignKey(Assessment)
 
   question   = m.ForeignKey(Question)
-  value      = m.BooleanField()
+  value      = m.BooleanField(
+    "They answered...",   # Used by admin interface
+    choices = (
+      (True, "Yes"),
+      (False, "No")
+    ),
+    default = True
+  )
 
 
   def is_correct(self):
