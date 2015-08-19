@@ -1,0 +1,14 @@
+{% extends 'aqa/base.html' %}
+
+{% block content %}
+<p>
+  Here are the 3 most important things for you to remember:
+</p>
+
+<ol>
+  {% for t in things %}
+    <li>{{ t }}</li>
+  {% endfor %}
+</ol>
+
+{% endblock %}
