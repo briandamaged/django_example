@@ -17,7 +17,13 @@ from django.utils import timezone
 
 
 class Assessment(m.Model):
-  author       = m.ForeignKey('auth.User')
+  author       = m.ForeignKey('auth.User',
+
+    # NOTE: Users can also take assessments.  So,
+    #       we're providing a custom name here to
+    #       disambiguate the relationship.
+    related_name = "authored_assessment_set"
+  )
 
   title        = m.CharField(max_length = 128)
   description  = m.TextField()
