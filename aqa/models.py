@@ -14,19 +14,34 @@ TODO:
 from django.db    import models as m
 from django.utils import timezone
 
+# This model seems like it's generally useful.  So, I'm
+# pulling it into this module for convenience.
+from django.contrib.auth.models import User
 
 
-class Assessment(m.Model):
-  author       = m.ForeignKey('auth.User',
+class Article(m.Model):
+  """
+  Represents an article w/ instructional content of some kind.
+  The article's author can also specify one or more Questions
+  to check the reader's comprehension.
 
-    # NOTE: Users can also take assessments.  So,
-    #       we're providing a custom name here to
-    #       disambiguate the relationship.
-    related_name = "authored_assessment_set"
-  )
+  TODO:
+
+    * Add a passing_grade field.  End-users must achieve this 
+      grade before they have "passed" an Assessment.
+
+    * Add a content_format field that will control how the
+      content is rendered.  For example: text, markdown, etc.
+
+    * Ideally, we want to prevent authors from modifying an
+      Article after it has been published.  Instead, they should
+      create a new version of the Article.  But, that workflow
+      can be implemented later.
+  """
+  author       = m.ForeignKey('auth.User')
 
   title        = m.CharField(max_length = 128)
-  description  = m.TextField()
+  content      = m.TextField()
 
   created_at   = m.DateTimeField(default = timezone.now)
   published_at = m.DateTimeField(blank = True, null = True)
@@ -52,13 +67,20 @@ class Assessment(m.Model):
 
 
 class Question(m.Model):
-  assessment = m.ForeignKey(Assessment)
+  """
+  Represents a Question about an Article.
+
+  TODO:
+    * Add a 'points' field, which indicates the number of points
+      that the question is worth.
+
+    * Consider making this class polymorphic so that other types
+      of questions can be supported in the future.
+  """
+  article = m.ForeignKey(Article)
 
   prompt = m.TextField();
 
-  # TODO: Eventually, we would want to extract this into a
-  #       polymorphic model so that we could support many
-  #       different types of answers.
   correct_answer = m.BooleanField(
     "The answer is...",
     choices = (
@@ -74,13 +96,27 @@ class Question(m.Model):
 
 
 
-# This class is called "UserAnswer" because it's the answer
-# that was provided by a specific User.  
-class UserAnswer(m.Model):
-  answerer = m.ForeignKey('auth.User')
 
-  question = m.ForeignKey(Question)
-  value    = m.BooleanField()
+class Assessment(m.Model):
+  """
+  After a User reads an Article, they can take an Assessment to
+  check their comprehension of the material.
+  """
+  user    = m.ForeignKey('auth.User')
+  article = m.ForeignKey(Article)
+
+
+
+
+class UserAnswer(m.Model):
+  """
+  Represents the way that a User answered a Question during
+  an Assessment.
+  """
+  assessment = m.ForeignKey(Assessment)
+
+  question   = m.ForeignKey(Question)
+  value      = m.BooleanField()
 
 
   def is_correct(self):
@@ -91,6 +127,4 @@ class UserAnswer(m.Model):
 
   def __str__(self):
     return str(self.value)
-
-
 
