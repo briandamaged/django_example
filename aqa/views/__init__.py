@@ -1,7 +1,7 @@
 from django.shortcuts import render
-from django.http import HttpResponse
 
-# Create your views here.
+from . import articles
+
 
 def index(req):
   return render(req, "aqa/welcome.html", {

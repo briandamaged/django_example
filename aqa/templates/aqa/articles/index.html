@@ -1,0 +1,13 @@
+{% extends 'aqa/base.html' %}
+
+
+{% block content %}
+  <ul>
+    {% for a in articles %}
+      <li>
+        <a href="#" >{{ a.title }}</a>
+      </li>
+    {% endfor %}
+  <ul>
+{% endblock %}
+
