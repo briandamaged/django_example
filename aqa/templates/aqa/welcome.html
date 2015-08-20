@@ -1,14 +1,27 @@
 {% extends 'aqa/base.html' %}
+{% load staticfiles %}
 
 {% block content %}
-<p>
-  Here are the 3 most important things for you to remember:
-</p>
 
-<ol>
-  {% for t in things %}
-    <li>{{ t }}</li>
-  {% endfor %}
-</ol>
+<div class="row" >
+  <div class="large-12 columns panel megatitle" >
+    <h1>A.Q.A</h1>
+    <h3>Articles. Questions. Answers.</h3>
+  </div>
+</div>
+
+<div class="row" data-equalizer >
+  <div class="medium-6 columns panel" data-equalizer-watch >
+    <div id="greetings" >
+      <h3>Greetings!</h3>
+
+      <p>Ready to begin?</p>
+      <a href="#" class="button success" >Sign in</a>
+    </div>
+  </div>
+  <div class="medium-6 columns" data-equalizer-watch >
+    <img class="rounded-box" src="{% static "aqa/images/booboo1.jpg" %}" />
+  </div>
+</div>
 
 {% endblock %}

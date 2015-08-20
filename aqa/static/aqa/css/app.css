@@ -1,0 +1,31 @@
+
+.megatitle {
+  text-align: center;
+}
+
+
+.rounded-box {
+  border: 2px solid black;
+  border-radius: 10px;
+}
+
+
+#greetings {
+  text-align: center;
+
+
+
+}
+
+@media only screen and (min-width: 40.063em) {
+  #greetings {
+    position: relative;
+    top: 50%;
+    transform: translateY(-50%);
+  }
+}
+
+
+#greetings p {
+  font-size: 1.2em;
+}
