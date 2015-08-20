@@ -5,7 +5,7 @@
   <ul>
     {% for a in articles %}
       <li>
-        <a href="#" >{{ a.title }}</a>
+        <a href="{% url 'show_article' a.id %}" >{{ a.title }}</a>
       </li>
     {% endfor %}
   <ul>
