@@ -15,8 +15,13 @@
     <div id="greetings" >
       <h3>Greetings!</h3>
 
-      <p>Ready for class?</p>
-      <a href="{% url "sign_in" %}" class="button success" >Sign in</a>
+      {% if request.user.is_authenticated %}
+        <p>What are you waiting for?</p>
+        <a href="{% url "all_articles" %}" class="button alert">Get to class!</a>
+      {% else %}
+        <p>Ready for class?</p>
+        <a href="{% url "sign_in" %}" class="button success" >Sign in</a>
+      {% endif %}
     </div>
   </div>
   <div class="medium-6 columns" data-equalizer-watch >
