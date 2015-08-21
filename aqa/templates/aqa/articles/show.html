@@ -1,8 +1,25 @@
 {% extends 'aqa/base.html' %}
 
 {% block content %}
-<h1>{{ article.title }}</h1>
 
-{{ article.content }}
+<div class="row" >
+  <div class="large-12 column" >
+    <h1>{{ article.title }}</h1>
+  </div>
+</div>
+
+
+
+<div class="row" >
+  <div class="large-12 column panel" >
+    {{ article.content }}
+  </div>
+</div>
+
+<div class="row" >
+  <div class="large-12 column" >
+    <a href="#" class="button expand" >Take Assessment</a>
+  </div>
+</div>
 
 {% endblock %}
