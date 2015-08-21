@@ -89,7 +89,7 @@ class Question(m.Model):
     * Consider making this class polymorphic so that other types
       of questions can be supported in the future.
   """
-  article = m.ForeignKey(Article)
+  article = m.ForeignKey(Article, related_name = "questions")
 
   prompt = m.TextField();
 

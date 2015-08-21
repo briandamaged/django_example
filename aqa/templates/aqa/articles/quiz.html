@@ -1,0 +1,29 @@
+{% extends 'aqa/base.html' %}
+
+{% block content %}
+
+<div class="row" >
+  <div class="large-12 column" >
+    <h1>Quiz time!</h1>
+    <h3>{{ article.title }}</h3>
+  </div>
+</div>
+
+
+<form>
+
+  {% for q in questions %}
+  <div class="row {% cycle 'panel' '' %}" >
+    <div class="medium-9 column" >
+      {{ q.prompt }}
+    </div>
+    <div class="medium-3 column" >
+      Yes / No
+    </div>
+  </div>
+  {% endfor %}
+
+</form>
+
+
+{% endblock %}
