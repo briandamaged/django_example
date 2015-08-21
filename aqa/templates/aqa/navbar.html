@@ -9,7 +9,12 @@
 
   <section class="top-bar-section" >
     <ul class="right" >
-      <li><a href="#" >Sign in</a></li>
+      {% if request.user.is_authenticated %}
+        <li><a href="{% url 'sign_out' %}" >Sign out</a></li>
+      {% else %}
+        <li><a href="{% url 'sign_in' %}" >Sign up</a></li>
+        <li><a href="{% url 'sign_in' %}" >Sign in</a></li>
+      {%endif %}
     </ul>
 
     <ul class="left" >

@@ -12,20 +12,34 @@
 
 #greetings {
   text-align: center;
-
-
-
 }
 
+#greetings p {
+  font-size: 1.2em;
+}
+
+
+
+
+#login-box {
+  position: relative;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+#byebye {
+  margin-top: 2em;
+}
+
+#byebye-msg {
+  text-align: center;
+}
+
+
 @media only screen and (min-width: 40.063em) {
-  #greetings {
+  #greetings, #byebye-msg {
     position: relative;
     top: 50%;
     transform: translateY(-50%);
   }
-}
-
-
-#greetings p {
-  font-size: 1.2em;
 }
