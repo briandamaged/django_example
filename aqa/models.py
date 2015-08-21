@@ -19,6 +19,10 @@ from django.utils import timezone
 from django.contrib.auth.models import User
 
 
+# Ensures that text does not exceed the specified length
+from aqa.lib import truncate
+
+
 class Article(m.Model):
   """
   Represents an article w/ instructional content of some kind.
@@ -46,6 +50,14 @@ class Article(m.Model):
   created_at   = m.DateTimeField(default = timezone.now)
   published_at = m.DateTimeField(blank = True, null = True)
 
+
+  @property
+  def trimmed_title(self):
+    return truncate(self.title, 25)
+
+  @property
+  def trimmed_content(self):
+    return truncate(self.content, 100)
 
   def is_published(self):
     return self.published_at is not None

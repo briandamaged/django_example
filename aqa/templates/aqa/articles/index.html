@@ -2,12 +2,30 @@
 
 
 {% block content %}
-  <ul>
-    {% for a in articles %}
-      <li>
-        <a href="{% url 'show_article' a.id %}" >{{ a.title }}</a>
-      </li>
-    {% endfor %}
-  <ul>
+  <div class="row" >
+    <div class="large-12 column" >
+      <h1>Published Articles</h1>
+    </div>
+
+    <div class="large-12 column" >
+
+      <ul class="small-block-grid-1 medium-block-grid-3" data-equalizer >
+        {% for a in articles %}
+          <li class="{% cycle 'panel' '' %}" data-equalizer-watch >
+            <a href="{% url "show_article" a.id %}" >
+              <h3>
+                {{ a.trimmed_title }}
+              </h3>
+
+              <cite>
+                {{ a.trimmed_content }}
+              </cite>
+            </a>
+          </li>
+        {% endfor %}
+      </ul>
+
+    </div>
+  </div>
 {% endblock %}
 

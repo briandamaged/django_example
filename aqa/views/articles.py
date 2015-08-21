@@ -3,7 +3,7 @@ from django.shortcuts import render
 from aqa.models import Article
 
 def index(req):
-  articles = Article.objects.all()
+  articles = Article.objects.select_related("author").all()
 
   return render(req, 'aqa/articles/index.html', {
     "articles": articles
