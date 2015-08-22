@@ -73,6 +73,32 @@ class Article(m.Model):
     self.save()
     return self
 
+
+  def create_assessment(self, user):
+    """
+    Creates a new Assessment instance for the given User
+    """
+    answers = [{"question": q, "value": True} for q in self.questions.all()]
+
+    a =  Assessment(
+      article  = self,
+      user     = user
+    )
+
+    # HACK: In Django, it appears that you cannot establish a
+    #       one-to-many relationship wo/ saving to the DB first.
+    #       That's pretty lame, IMO.  Oh well.  Saving!...
+    a.save()
+
+
+    for q in self.questions.all():
+      a.answers.add(AssessmentAnswer(
+        question   = q,
+        value      = True
+      ))
+
+    return a
+
   def __str__(self):
     return str(self.title)
 
@@ -125,9 +151,9 @@ class AssessmentAnswer(m.Model):
   Represents the way that a User answered a Question during
   an Assessment.
   """
-  assessment = m.ForeignKey(Assessment)
+  assessment = m.ForeignKey(Assessment, related_name = "answers")
+  question   = m.ForeignKey(Question, related_name = "answers")
 
-  question   = m.ForeignKey(Question)
   value      = m.BooleanField(
     "They answered...",   # Used by admin interface
     choices = (
