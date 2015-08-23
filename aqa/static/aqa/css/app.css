@@ -11,6 +11,34 @@
 
 
 
+.quiz .question:not(:last-child) {
+  border-bottom: 1px dotted #cccccc;
+}
+
+.quiz .question:nth-child(even) {
+  background: #fafafa;
+}
+
+.quiz .column {
+  margin-top: 1em;
+  margin-bottom: 1em;
+}
+
+
+.quiz input[type="checkbox"] {
+  margin-right: 1em;
+}
+
+.quiz input[type='checkbox']:checked + label::before {
+  content: "Yes!";
+}
+
+.quiz input[type='checkbox']:not(:checked) + label::before {
+  content: "No...";
+}
+
+
+
 #greetings {
   text-align: center;
 }
