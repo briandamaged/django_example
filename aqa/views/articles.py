@@ -23,8 +23,10 @@ def quiz(req, article_id):
                    .prefetch_related("questions") \
                    .get(id = article_id)
 
+  form = article.create_quiz_form()
+
   return render(req, 'aqa/articles/quiz.html', {
     "article": article,
-    "questions": article.questions.all()
+    "form":    form
   })
 

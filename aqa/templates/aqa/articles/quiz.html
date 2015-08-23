@@ -10,18 +10,26 @@
 </div>
 
 
-<form>
+<form class="quiz" method="post" action="{% url 'quiz_article' article.id %}" >
+  {% csrf_token %}
 
-  {% for q in questions %}
-  <div class="row {% cycle 'panel' '' %}" >
-    <div class="medium-9 column" >
-      {{ q.prompt }}
+  {% for field in form %}
+  <div class="row question" >
+    <div class="medium-9 column prompt" >
+      {{ field.label_tag }}
     </div>
-    <div class="medium-3 column" >
-      Yes / No
+    <div class="medium-3 column answer" >
+      {{ field }}
+      <label for="{{ field.id_for_label }}"></span>
     </div>
   </div>
   {% endfor %}
+
+  <div class="row" >
+    <div class="large-12 column" >
+      <input type="submit" value="Submit" class="button expand" />
+    </div>
+  </div>
 
 </form>
 

@@ -74,30 +74,25 @@ class Article(m.Model):
     return self
 
 
-  def create_assessment(self, user):
+  def create_quiz_form(self):
     """
-    Creates a new Assessment instance for the given User
+    Dynamically generates a Form class that is tailored
+    to this specific Article instance.
+
+    See, Python?  Meta-programming isn't so bad! :-P
     """
-    answers = [{"question": q, "value": True} for q in self.questions.all()]
+    from django import forms as f
 
-    a =  Assessment(
-      article  = self,
-      user     = user
-    )
+    class MyForm(f.Form):
+      for q in self.questions.all():
+        field_name = "q_" + str(q.id)
 
-    # HACK: In Django, it appears that you cannot establish a
-    #       one-to-many relationship wo/ saving to the DB first.
-    #       That's pretty lame, IMO.  Oh well.  Saving!...
-    a.save()
+        vars()[field_name] = f.BooleanField(
+          label = q.prompt
+        )
 
+    return MyForm
 
-    for q in self.questions.all():
-      a.answers.add(AssessmentAnswer(
-        question   = q,
-        value      = True
-      ))
-
-    return a
 
   def __str__(self):
     return str(self.title)
