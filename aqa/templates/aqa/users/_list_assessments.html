@@ -1,0 +1,16 @@
+
+<ul class="accordion" data-accordion>
+  {% for ag in assessment_groups %}
+    <li class="accordion-navigation">
+      <a href="#{{ ag.anchor }}" >{{ ag }}</a>
+      <div id="{{ ag.anchor }}" class="content" >
+        {% for a in ag.assessments %}
+          <div class="row" >
+            {{ a }}
+          </div>
+        {% endfor %}
+      </div>
+    </li>
+  {% endfor %}
+
+</ul>

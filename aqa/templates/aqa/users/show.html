@@ -25,14 +25,10 @@
     </h3>
   </div>
 
-  {% if assessments %}
-    
-
-    {% for a in assessments %}
-      <div class="row assessment-row" >
-        {{ a.article.title }}
-      </div>
-    {% endfor %}
+  {% if assessment_groups %}
+    <div class="row" >
+      {% include 'aqa/users/_list_assessments.html' %}
+    </div>
 
   {% else %}
     <div class="row text-centered" >

@@ -73,6 +73,7 @@ class Article(m.Model):
     self.save()
     return self
 
+
   def create_assessment(self, user, answers):
     """
     Generates a new Assessment instance.  Due to the way that
