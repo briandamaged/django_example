@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 
 from aqa.models import Article
 
@@ -23,7 +23,29 @@ def quiz(req, article_id):
                    .prefetch_related("questions") \
                    .get(id = article_id)
 
-  form = article.create_quiz_form()
+  TheForm = article.create_quiz_form()
+
+
+  if req.method == "POST":
+    form = TheForm(req.POST)
+
+    # Note: This will basically ALWAYS be true because the
+    #       form consists entirely of non-required BooleanFields.
+    #       I can think of ways to address this, but they would
+    #       involve fighting Django.
+    if form.is_valid():
+      from django.http import JsonResponse
+
+      retval = form.answer_data()
+
+      # for name, f in form.fields.iteritems():
+      #   retval[name] = dir(f)
+
+      return JsonResponse(retval, safe = False)
+
+  else:  # GET, or any other method
+    form = TheForm()
+
 
   return render(req, 'aqa/articles/quiz.html', {
     "article": article,

@@ -84,11 +84,28 @@ class Article(m.Model):
     from django import forms as f
 
     class MyForm(f.Form):
+
+      def answer_data(self):
+        """
+        Grabs ONLY the answer data that applies to this form.
+        This prevents end-users from adding answers to Questions
+        that were not part of this form.
+        """
+        retval = {}
+        for name in self.fields:
+          if self.data.has_key(name):
+            # Remove the "q_" prefix for easier processing
+            retval[name.replace("q_", "")] = self.data[name]
+
+
+        return retval
+
       for q in self.questions.all():
         field_name = "q_" + str(q.id)
 
         vars()[field_name] = f.BooleanField(
-          label = q.prompt
+          label = q.prompt,
+          required = False
         )
 
     return MyForm
