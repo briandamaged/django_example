@@ -59,14 +59,6 @@ Currently, all users must be added through Django's admin control panel.  It wou
 
 ### Add data entry pages for Articles / Questions ###
 
-Same as above.
+Right now, the models compute a number of virtual properties, such as the maximum possible score for an assessment.  Each time the models are accessed, this value needs to be recomputed.  From an efficiency standpoint, it would be better to simply compute these values whenever the articles are persisted.  That way, the cached values could be retrieved without any need to perform database joins.
 
-### Allow users to take assessments ###
-
-Currently, I'm fighting w/ Django's form API.  It seems simple enough to use for basic forms; however, the dynamic nature of the assessments it proving to be problematic.  In short:
-
-* If I take the obvious approach, then I end up w/ bloated form objects that are vulnerable to mass assignment.
-* If I create custom forms, then I end up having to do a lot of data integrity checks inside of the view.  This feels like I'm fighting Django.
-
-I think I can actually solve the problem via a little bit of meta-programming.  But, I'll handle that later.
-
+But, it would be safe to do this until after we replace Django's admin control panel.  Otherwise, end-users will be able to tamper w/ the derived properties, which could have unanticipated consequences.
