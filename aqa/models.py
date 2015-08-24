@@ -31,9 +31,6 @@ class Article(m.Model):
 
   TODO:
 
-    * Add a passing_grade field.  End-users must achieve this 
-      grade before they have "passed" an Assessment.
-
     * Add a content_format field that will control how the
       content is rendered.  For example: text, markdown, etc.
 
@@ -46,6 +43,8 @@ class Article(m.Model):
 
   title        = m.CharField(max_length = 128)
   content      = m.TextField()
+
+  passing_score = m.IntegerField(default = 1)
 
   created_at   = m.DateTimeField(default = timezone.now)
   published_at = m.DateTimeField(blank = True, null = True)
@@ -84,18 +83,25 @@ class Article(m.Model):
     with transaction.atomic():
       a = Assessment(
         article = self,
-        user    = user
+        user    = user,
+        score   = 0
       )
       a.save()
 
 
       for q in self.questions.all():
-        the_answer = answers.has_key(q.id)
-
-        a.answers.add(AssessmentAnswer(
+        aa = AssessmentAnswer(
           question = q,
-          value    = the_answer
-        ))
+          value    = answers.has_key(q.id)
+        )
+
+        # Count up the correct answers
+        if aa.is_correct:
+          a.score = a.score + 1
+
+        a.answers.add(aa)
+
+
 
       a.save()
 
@@ -184,6 +190,9 @@ class Assessment(m.Model):
   user    = m.ForeignKey('auth.User', related_name = "assessments")
   article = m.ForeignKey(Article)
 
+  score   = m.IntegerField(default = 0)
+
+
 
 
 
@@ -205,9 +214,11 @@ class AssessmentAnswer(m.Model):
   )
 
 
+  @property
   def is_correct(self):
     return self.question.correct_answer == self.value
 
+  @property
   def is_incorrect(self):
     return self.question.correct_answer != self.value
 
