@@ -7,63 +7,71 @@
   </div>
 
   <div class="row" >
-    <h3>Overview</h3>
-  </div>
+    <ul class="accordion" data-accordion>
+      <li class="accordion-navigation">
+        <a href="#overview" >Overview</a>
 
-  <div class="row" >
-    <div class="medium-6 column" >
-      <h5><a href="{% url 'show_article' assessment.article.id %}" >{{ assessment.article.title }}</a></h5>
-    </div>
-    <div class="medium-4 column" >
-      <table>
-        <tr>
-          <th>Your score:</th>
-          <td>{{ assessment.score }} / {{ assessment.max_possible_score }}</td>
-        </tr>
-        <tr>
-          <th>Required score:</th>
-          <td>{{ assessment.passing_score }} / {{ assessment.max_possible_score }}</td>
-        </tr>
-        <tr>
-          <th>Outcome:</th>
-          <td>{{ assessment.is_passing|yesno:"Passed,Failed"}}</td>
-        </tr>
-      </table>
-    </div>
-    <div class="medium-2 column">
-      <a href="{% url 'quiz_article' assessment.article.id %}" class="button expand" >Try Again</a>
-    </div>
-  </div>
-
-
-
-  <div class="answer-details" >
-    <div class="row" >
-      <h3>Answer Details</h3>
-    </div>
-
-    {% for aa in answers %}
-
-      <div class="row answer-detail {{ aa.is_correct|yesno:"answer-correct,answer-incorrect"}}" >
-        <div class="medium-8 column" >
-          {{ aa.question_prompt }}
+        <div id="overview" class="active content" >
+          <div class="row" >
+            <div class="medium-6 column" >
+              <h5><a href="{% url 'show_article' assessment.article.id %}" >{{ assessment.article.title }}</a></h5>
+            </div>
+            <div class="medium-4 column" >
+              <table>
+                <tr>
+                  <th>Your score:</th>
+                  <td>{{ assessment.score }} / {{ assessment.max_possible_score }}</td>
+                </tr>
+                <tr>
+                  <th>Required score:</th>
+                  <td>{{ assessment.passing_score }} / {{ assessment.max_possible_score }}</td>
+                </tr>
+                <tr>
+                  <th>Outcome:</th>
+                  <td>{{ assessment.is_passing|yesno:"Passed,Failed"}}</td>
+                </tr>
+              </table>
+            </div>
+            <div class="medium-2 column">
+              <a href="{% url 'quiz_article' assessment.article.id %}" class="button expand" >Try Again</a>
+            </div>
+          </div>
         </div>
+      </li>
 
-        <div class="medium-4 column" >
-          <table>
-            <tr>
-              <th>Your answer:</th>
-              <td>{{ aa.value|yesno:"Yes,No" }}</td>
-            </tr>
-            <tr>
-              <th>Expected answer:</th>
-              <td>{{ aa.expected_answer|yesno:"Yes,No" }}</td>
-            </tr>
-          </table>
+
+      <li class="accordion-navigation" >
+        <a href="#answer-details">Answer Details</a>
+        <div id="answer-details" class="content answer-details" >
+          <div class="row" >
+            <h3>Answer Details</h3>
+          </div>
+
+          {% for aa in answers %}
+
+            <div class="row answer-detail {{ aa.is_correct|yesno:"answer-correct,answer-incorrect"}}" >
+              <div class="medium-8 column" >
+                {{ aa.question_prompt }}
+              </div>
+
+              <div class="medium-4 column" >
+                <table>
+                  <tr>
+                    <th>Your answer:</th>
+                    <td>{{ aa.value|yesno:"Yes,No" }}</td>
+                  </tr>
+                  <tr>
+                    <th>Expected answer:</th>
+                    <td>{{ aa.expected_answer|yesno:"Yes,No" }}</td>
+                  </tr>
+                </table>
+              </div>
+            </div>
+
+          {% endfor %}
         </div>
-      </div>
-
-    {% endfor %}
+      </li>
+    </ul>
   </div>
 
 
