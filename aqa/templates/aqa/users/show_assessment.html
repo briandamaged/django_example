@@ -43,10 +43,6 @@
       <li class="accordion-navigation" >
         <a href="#answer-details">Answer Details</a>
         <div id="answer-details" class="content answer-details" >
-          <div class="row" >
-            <h3>Answer Details</h3>
-          </div>
-
           {% for aa in answers %}
 
             <div class="row answer-detail {{ aa.is_correct|yesno:"answer-correct,answer-incorrect"}}" >
