@@ -104,4 +104,5 @@ STATIC_URL = '/static/'
 
 
 # This is needed by django.contrib.auth
-LOGIN_REDIRECT_URL = '/'
+LOGIN_URL          = "sign_in"
+LOGIN_REDIRECT_URL = 'all_articles'
