@@ -42,18 +42,18 @@
 }
 
 
-
-.assessment-result .failing {
-  background: #ffaaaa;
+.assessment-failing {
+  background: #ffcccc;
 }
 
-.assessment-result table {
-  margin-top: 1em;
+.assessment-result {
+  padding-top: 1em;
 }
 
 .assessment-result:not(:last-child) {
   border-bottom: 1px dotted #cccccc;
 }
+
 
 
 #greetings {

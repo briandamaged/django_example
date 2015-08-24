@@ -1,11 +1,11 @@
 
 <ul class="accordion" data-accordion>
   {% for ag in assessment_groups %}
-    <li class="accordion-navigation assessment-result">
+    <li class="accordion-navigation">
       <a href="#{{ ag.anchor }}" >{{ ag }}</a>
       <div id="{{ ag.anchor }}" class="content" >
         {% for a in ag.assessments %}
-          <div class="row {{ a.is_passing|yesno:"passing,failing" }}" >
+          <div class="row assessment-result {{ a.is_passing|yesno:"assessment-passing,assessment-failing" }}" >
             <div class="medium-5 column" >
               {{ a.created_at }}
             </div>
