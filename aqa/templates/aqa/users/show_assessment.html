@@ -33,7 +33,11 @@
               </table>
             </div>
             <div class="medium-2 column">
-              <a href="{% url 'quiz_article' assessment.article.id %}" class="button expand" >Try Again</a>
+              {% if assessment.is_passing %}
+                <p>Good Job!</p>
+              {% else %}
+                <a href="{% url 'quiz_article' assessment.article.id %}" class="button alert expand" >Try Again</a>
+              {% endif %}
             </div>
           </div>
         </div>
