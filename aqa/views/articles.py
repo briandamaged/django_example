@@ -1,7 +1,9 @@
 from django.shortcuts import render, redirect
 
 from aqa.models import Article
+from aqa.decorators.auth import login_required
 
+@login_required
 def index(req):
   articles = Article.objects.all()
 
@@ -10,6 +12,7 @@ def index(req):
   })
 
 
+@login_required
 def show(req, article_id):
   article = Article.objects.get(id = article_id)
 
@@ -18,6 +21,7 @@ def show(req, article_id):
   })
 
 
+@login_required
 def quiz(req, article_id):
   article = Article.objects \
                    .prefetch_related("questions") \

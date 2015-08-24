@@ -3,8 +3,8 @@ from itertools import groupby
 
 from django.shortcuts import render
 
-from aqa.models import Assessment
-
+from aqa.models          import Assessment
+from aqa.decorators.auth import login_required
 
 class _AssessmentsByArticle(object):
   def __init__(self, article, assessments):
@@ -29,6 +29,9 @@ def _group_assessments_by_article(assessments):
     )
 
 
+
+
+@login_required
 def show_me(req):
   user        = req.user
   assessments = user.assessments \
@@ -47,7 +50,7 @@ def show_me(req):
   })
 
 
-
+@login_required
 def show_my_assessment(req, assessment_id):
   user       = req.user
   assessment = user.assessments \
