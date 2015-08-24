@@ -36,12 +36,17 @@ def quiz(req, article_id):
     if form.is_valid():
       from django.http import JsonResponse
 
-      retval = form.answer_data()
+      answers = form.answer_data()
 
-      # for name, f in form.fields.iteritems():
-      #   retval[name] = dir(f)
+      a = article.create_assessment(
+        user    = req.user,
+        answers = answers
+      )
 
-      return JsonResponse(retval, safe = False)
+      return JsonResponse({
+        "user": a.user.id,
+        "article": a.article.id
+        })
 
   else:  # GET, or any other method
     form = TheForm()

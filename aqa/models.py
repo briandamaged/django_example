@@ -11,7 +11,7 @@ TODO:
 
 """
 
-from django.db    import models as m
+from django.db    import models as m, transaction
 from django.utils import timezone
 
 # This model seems like it's generally useful.  So, I'm
@@ -73,6 +73,27 @@ class Article(m.Model):
     self.save()
     return self
 
+  def create_assessment(self, user, answers):
+    with transaction.atomic():
+      a = Assessment(
+        article = self,
+        user    = user
+      )
+      a.save()
+
+
+      for q in self.questions.all():
+        the_answer = answers.has_key(q.id)
+
+        a.answers.add(AssessmentAnswer(
+          question = q,
+          value    = the_answer
+        ))
+
+      a.save()
+
+    return a
+
 
   def create_quiz_form(self):
     """
@@ -95,7 +116,8 @@ class Article(m.Model):
         for name in self.fields:
           if self.data.has_key(name):
             # Remove the "q_" prefix for easier processing
-            retval[name.replace("q_", "")] = self.data[name]
+            key         = int(name.replace("q_", ""))
+            retval[key] = self.data[name]
 
 
         return retval
