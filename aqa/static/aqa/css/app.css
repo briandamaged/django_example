@@ -43,6 +43,19 @@
 
 
 
+.assessment-result .failing {
+  background: #ffaaaa;
+}
+
+.assessment-result table {
+  margin-top: 1em;
+}
+
+.assessment-result:not(:last-child) {
+  border-bottom: 1px dotted #cccccc;
+}
+
+
 #greetings {
   text-align: center;
 }

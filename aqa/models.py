@@ -194,6 +194,26 @@ class Assessment(m.Model):
 
   score   = m.IntegerField(default = 0)
 
+  @property
+  def max_possible_score(self):
+    # TODO: This only works because each question is worth 1 point.
+    #       We will need to revisit this once that assumption changes.
+    return self.answers.count()
+
+  @property
+  def passing_score(self):
+    # TODO: Once again, we might want to consider caching this on the
+    #       Assessment itself in the future.
+    return self.article.passing_score
+
+  @property
+  def is_passing(self):
+    return self.score >= self.article.passing_score
+
+  @property
+  def is_failing(self):
+    return not self.is_passing
+
 
 
 

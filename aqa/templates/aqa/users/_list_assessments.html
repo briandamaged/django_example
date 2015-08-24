@@ -1,12 +1,36 @@
 
 <ul class="accordion" data-accordion>
   {% for ag in assessment_groups %}
-    <li class="accordion-navigation">
+    <li class="accordion-navigation assessment-result">
       <a href="#{{ ag.anchor }}" >{{ ag }}</a>
       <div id="{{ ag.anchor }}" class="content" >
         {% for a in ag.assessments %}
-          <div class="row" >
-            {{ a }}
+          <div class="row {{ a.is_passing|yesno:"passing,failing" }}" >
+            <div class="medium-5 column" >
+              {{ a.created_at }}
+            </div>
+            <div class="medium-5 column" >
+
+              <table>
+                <tr>
+                  <th>Your score:</th>
+                  <td>{{ a.score }} / {{ a.max_possible_score }}</td>
+                </tr>
+                <tr>
+                  <th>Required score:</th>
+                  <td>{{ a.passing_score }} / {{ a.max_possible_score }}</td>
+                </tr>
+                <tr>
+                  <th>Outcome:</th>
+                  <td>{{ a.is_passing|yesno:"Passed,Failed"}}</td>
+                </tr>
+              </table>
+            </div>
+
+            <div class="medium-2 column" >
+              <a href="#" class="button expand" >Details</a>
+            </div>
+
           </div>
         {% endfor %}
       </div>
