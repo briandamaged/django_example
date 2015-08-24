@@ -47,7 +47,7 @@ def quiz(req, article_id):
         answers = answers
       )
 
-      return redirect("show_me")
+      return redirect("show_my_assessment", a.id)
 
   else:  # GET, or any other method
     form = TheForm()
