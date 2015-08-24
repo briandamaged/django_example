@@ -74,6 +74,12 @@ class Article(m.Model):
     return self
 
   def create_assessment(self, user, answers):
+    """
+    Generates a new Assessment instance.  Due to the way that
+    Django handles one-to-many relationships, this method also
+    needs to immediately persist the data in the db.
+    """
+
     with transaction.atomic():
       a = Assessment(
         article = self,
@@ -174,7 +180,7 @@ class Assessment(m.Model):
   After a User reads an Article, they can take an Assessment to
   check their comprehension of the material.
   """
-  user    = m.ForeignKey('auth.User')
+  user    = m.ForeignKey('auth.User', related_name = "assessments")
   article = m.ForeignKey(Article)
 
 
