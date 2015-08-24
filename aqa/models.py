@@ -244,6 +244,16 @@ class AssessmentAnswer(m.Model):
   def is_incorrect(self):
     return self.question.correct_answer != self.value
 
+  @property
+  def question_prompt(self):
+    if self.question:
+      return self.question.prompt
+
+  @property
+  def expected_answer(self):
+    if self.question:
+      return self.question.correct_answer
+
   def __str__(self):
     return str(self.value)
 

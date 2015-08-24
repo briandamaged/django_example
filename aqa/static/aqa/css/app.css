@@ -54,6 +54,17 @@
   border-bottom: 1px dotted #cccccc;
 }
 
+.answer-details .answer-detail {
+  padding-top: 1em;
+}
+
+.answer-details .answer-detail:not(:last-child) {
+  border-bottom: 1px dotted #cccccc;
+}
+
+.answer-details .answer-incorrect {
+  background: #ffcccc;
+}
 
 
 #greetings {

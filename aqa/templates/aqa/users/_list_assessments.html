@@ -10,7 +10,6 @@
               {{ a.created_at }}
             </div>
             <div class="medium-5 column" >
-
               <table>
                 <tr>
                   <th>Your score:</th>
@@ -28,7 +27,7 @@
             </div>
 
             <div class="medium-2 column" >
-              <a href="#" class="button expand" >Details</a>
+              <a href="{% url 'show_my_assessment' a.id %}" class="button expand" >Details</a>
             </div>
 
           </div>

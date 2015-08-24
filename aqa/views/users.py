@@ -29,7 +29,7 @@ def _group_assessments_by_article(assessments):
     )
 
 
-def me(req):
+def show_me(req):
   user        = req.user
   assessments = user.assessments \
                     .prefetch_related("article") \
@@ -44,5 +44,22 @@ def me(req):
   return render(req, 'aqa/users/show.html', {
     "user":              user,
     "assessment_groups": assessment_groups
+  })
+
+
+
+def show_my_assessment(req, assessment_id):
+  user       = req.user
+  assessment = user.assessments \
+                  .filter(id = assessment_id) \
+                  .prefetch_related("answers__question", "article") \
+                  .get()
+
+
+
+  return render(req, 'aqa/users/show_assessment.html', {
+    "user":       user,
+    "assessment": assessment,
+    "answers":    assessment.answers.all()
   })
 
