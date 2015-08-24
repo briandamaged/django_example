@@ -43,10 +43,7 @@ def quiz(req, article_id):
         answers = answers
       )
 
-      return JsonResponse({
-        "user": a.user.id,
-        "article": a.article.id
-        })
+      return redirect("show_me")
 
   else:  # GET, or any other method
     form = TheForm()

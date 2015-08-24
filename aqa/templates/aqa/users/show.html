@@ -1,0 +1,44 @@
+{% extends 'aqa/base.html' %}
+
+{% block content %}
+
+  <div class="row panel" >
+    <div class="medium-8 column" >
+      <h1>
+        {{ user.username }}'s Profile
+      </h1>
+    </div>
+    <div class="medium-4 column" >
+      <div class="row" >
+        {{ user.first_name}} {{ user.last_name }}
+      </div>
+      <div class="row" >
+        {{ user.email}}
+      </div>
+    </div>
+  </div>
+
+
+  <div class="row" >
+    <h3>
+      Assessments:
+    </h3>
+  </div>
+
+  {% if assessments %}
+    
+
+    {% for a in assessments %}
+      <div class="row assessment-row" >
+        {{ a.article.title }}
+      </div>
+    {% endfor %}
+
+  {% else %}
+    <div class="row text-centered" >
+      <p>You have not taken any assessments yet!</p>
+      <a href="{% url 'all_articles' %}" class="button alert" >Get to class!</a>
+    </div>
+  {% endif %}
+
+{% endblock %}

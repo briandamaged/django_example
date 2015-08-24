@@ -10,6 +10,7 @@
   <section class="top-bar-section" >
     <ul class="right" >
       {% if request.user.is_authenticated %}
+        <li><a href="{% url 'show_me' %}" >Profile</a></li>
         <li><a href="{% url 'sign_out' %}" >Sign out</a></li>
       {% else %}
         <li><a href="{% url 'sign_in' %}" >Sign in</a></li>
