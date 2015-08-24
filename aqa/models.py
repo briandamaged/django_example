@@ -190,6 +190,8 @@ class Assessment(m.Model):
   user    = m.ForeignKey('auth.User', related_name = "assessments")
   article = m.ForeignKey(Article)
 
+  created_at = m.DateTimeField(default = timezone.now)
+
   score   = m.IntegerField(default = 0)
 
 
